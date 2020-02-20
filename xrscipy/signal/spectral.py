@@ -450,6 +450,7 @@ def hilbert(darray, N=None, dim=None):
         Analytic signal of the Hilbert transform of 'darray' along selected axis.
     """
     dim = get_maybe_only_dim(darray, dim)
+    axis = darray.get_axis_num(dim)
     n_orig = darray.shape[axis]
     N_unspecified = N is None
     if N_unspecified:
@@ -471,6 +472,6 @@ def _hilbert_wraper(darray, N, n_orig, N_unspecified, axis = -1):
     if n_orig != N and N_unspecified:
         sl = [slice(None)] * out.ndim
         sl[axis] = slice(None, n_orig)
-        out = out[sl]
+        out = out[tuple(sl)]
     return out
 
